@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	dwb "todo_go/dbw"
 )
 
 func main() {
@@ -40,5 +41,12 @@ func main() {
 	fmt.Printf("Name: %s\n", name)
 	fmt.Printf("Age: %d\n", age)
 	fmt.Printf("Height: %.2f\n", height)
+
+	id_rec, err := dwb.ReadRec(1)
+	if err != nil {
+		fmt.Printf("Ошибка: %v\n", err)
+	} else {
+		fmt.Printf("Прочитано: %v", id_rec)
+	}
 
 }
