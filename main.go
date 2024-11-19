@@ -1,11 +1,9 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
-
-	// "os"
-	"flag"
 	"path/filepath"
 )
 
