@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"os"
+
 	// "os"
 	"flag"
 )
@@ -21,11 +23,20 @@ func main() {
 		height float64
 	)
 
+	flag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "Usage of %s: \n", os.Args[0])
+		flag.PrintDefaults()
+	}
+
 	flag.StringVar(&name, "name", "John Dow", "Your name")
 	flag.IntVar(&age, "age", 21, "Your age")
 	flag.Float64Var(&height, "height", 180, "Ваш рост (см)")
 
 	flag.Parse()
+	if len(os.Args) < 4 {
+		flag.Usage()
+		os.Exit(1)
+	}
 
 	fmt.Printf("Name: %s\n", name)
 	fmt.Printf("Age: %d\n", age)
