@@ -27,8 +27,8 @@ func main() {
 
 	flag.Parse()
 
-	fmt.Printf("Name: %s", name)
-	fmt.Printf("Age: %d", age)
-	fmt.Printf("Height: %.1f", height)
+	fmt.Printf("Name: %s\n", name)
+	fmt.Printf("Age: %d\n", age)
+	fmt.Printf("Height: %.2f\n", height)
 
 }
