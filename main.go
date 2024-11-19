@@ -6,6 +6,7 @@ import (
 
 	// "os"
 	"flag"
+	"path/filepath"
 )
 
 func main() {
@@ -24,7 +25,7 @@ func main() {
 	)
 
 	flag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "Usage of %s: \n", os.Args[0])
+		fmt.Fprintf(os.Stderr, "Usage of %s: \n", filepath.Base(os.Args[0]))
 		flag.PrintDefaults()
 	}
 
