@@ -7,18 +7,18 @@ import (
 	"os"
 )
 
-
 // Инициализация структуры для работы с записами
-func init(){
-	type todo_record struct{
-		id,
-		data_of_creations,
-		date_max,
-		todo_text,
-		is_gone,
-		date_of_gone
+func init() {
+	type todo_record struct {
+		id                int
+		data_of_creations string
+		date_max          string
+		todo_text         string
+		is_gone           int
+		date_of_gone      string
 	}
 }
+
 // ЗАГЛУШКА: Читаю данные из БД
 func ReadRec(id_rec int) (int, error) {
 	// Функция читает данные из БД
@@ -55,10 +55,8 @@ func ReadRec(id_rec int) (int, error) {
 		os.Exit(1)
 	}
 	defer rows.Close()
-	
+
 	fmt.Printf("rows type is %T/n", rows)
-
-
 
 	return id_rec, nil
 }
