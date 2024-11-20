@@ -5,16 +5,20 @@ import (
 	"errors"
 	"fmt"
 	"os"
+
+	//  Импортирую для инициализации драйвера
+	// _ "github.com/mattn/go-sqlite3"
+	_ "modernc.org/sqlite"
 )
 
 // Структура для записи задачи todo
 type todo_record struct {
-	id                int
-	data_of_creations string
-	date_max          string
-	todo_text         string
-	is_gone           int
-	date_of_gone      string
+	id               int
+	data_of_creation string
+	date_max         string
+	todo_text        string
+	is_gone          int
+	date_of_gone     string
 }
 
 func init() {
@@ -30,7 +34,7 @@ func ReadRec(id_rec int) (int, error) {
 		return 0, errors.New(
 			"id ReadRec--1: недопустимый идентификатор записи")
 	}
-	db_connect, err := sql.Open("sqlite3", "ep20231204_todo_cli.db")
+	db_connect, err := sql.Open("sqlite", "ep20231204_todo_cli.db")
 	// id ReadRec--2:
 	if err != nil {
 		fmt.Printf("ReadRec--2: Не могу открыть БД %v", err)
@@ -41,17 +45,16 @@ func ReadRec(id_rec int) (int, error) {
 	query := `
 		SELECT 
 			id,
-			data_of_creations,
+			data_of_creation,
 			date_max,
 			todo_text,
 			is_gone,
 			date_of_gone
-		from my_todo_list
+		FROM my_todo_list;
 	`
 	rows, err := db_connect.Query(query)
 	// id ReadRec--3
 	if err != nil {
-
 		fmt.Printf("ReadRec--3: Не могу прочитать из БД %v", err)
 		fmt.Scanln()
 		os.Exit(1)
@@ -60,6 +63,37 @@ func ReadRec(id_rec int) (int, error) {
 	todo_records := []todo_record{}
 
 	fmt.Printf("rows type is %T/n", rows)
+
+	for rows.Next() {
+		todo := todo_record{}
+
+		err := rows.Scan(
+			&todo.id,
+			&todo.data_of_creation,
+			&todo.date_max,
+			&todo.todo_text,
+			&todo.is_gone,
+			&todo.date_of_gone,
+		)
+		if err != nil {
+			//id ReadRec--4
+			fmt.Printf("ReadRec--4: Не могу прочитать строку из БД %v", err)
+			fmt.Scanln()
+			continue
+		}
+		todo_records = append(todo_records, todo)
+	}
+
+	for _, todo := range todo_records {
+		fmt.Println(
+			todo.id,
+			todo.data_of_creation,
+			todo.date_max,
+			todo.todo_text,
+			todo.is_gone,
+			todo.date_of_gone,
+		)
+	}
 
 	return id_rec, nil
 }
