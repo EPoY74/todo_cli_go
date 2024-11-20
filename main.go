@@ -35,6 +35,7 @@ func main() {
 	flag.Parse()
 	if len(os.Args) < 4 {
 		flag.Usage()
+		fmt.Scanln()
 		os.Exit(1)
 	}
 
