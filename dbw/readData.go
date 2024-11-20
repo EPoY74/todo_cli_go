@@ -2,6 +2,7 @@ package dwb
 
 import "errors"
 
+// ЗАГЛУШКА: Читаю данные из БД
 func ReadRec(id_rec int) (int, error) {
 	// Функция читает данные из БД
 	// id ReadRec--1
