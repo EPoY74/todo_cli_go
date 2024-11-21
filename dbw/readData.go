@@ -14,11 +14,11 @@ import (
 // Структура для записи задачи todo
 type todo_record struct {
 	id               int
-	data_of_creation string
-	date_max         string
-	todo_text        string
+	data_of_creation sql.NullString
+	date_max         sql.NullString
+	todo_text        sql.NullString
 	is_gone          int
-	date_of_gone     string
+	date_of_gone     sql.NullString
 }
 
 func init() {
@@ -94,6 +94,5 @@ func ReadRec(id_rec int) (int, error) {
 			todo.date_of_gone,
 		)
 	}
-
 	return id_rec, nil
 }
