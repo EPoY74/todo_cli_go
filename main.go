@@ -18,9 +18,9 @@ func main() {
 	// }
 
 	var (
-		name   string
-		age    int
-		height float64
+		command string
+		// age     int
+		// height  float64
 	)
 
 	flag.Usage = func() {
@@ -28,26 +28,29 @@ func main() {
 		flag.PrintDefaults()
 	}
 
-	flag.StringVar(&name, "name", "John Dow", "Your name")
-	flag.IntVar(&age, "age", 21, "Your age")
-	flag.Float64Var(&height, "height", 180, "Ваш рост (см)")
+	flag.StringVar(&command, "command", "show", "The command for ToDo")
+	// flag.IntVar(&age, "age", 21, "Your age")
+	// flag.Float64Var(&height, "height", 180, "Ваш рост (см)")
 
 	flag.Parse()
-	if len(os.Args) < 4 {
+	if len(os.Args) < 2 {
 		flag.Usage()
 		fmt.Scanln()
 		os.Exit(1)
 	}
 
-	fmt.Printf("Name: %s\n", name)
-	fmt.Printf("Age: %d\n", age)
-	fmt.Printf("Height: %.2f\n", height)
+	fmt.Printf("Name: %s\n", command)
+	// fmt.Printf("Age: %d\n", age)
+	// fmt.Printf("Height: %.2f\n", height)
 
-	id_rec, err := dbw.ReadRec(1)
-	if err != nil {
-		fmt.Printf("Ошибка: %v\n", err)
-	} else {
-		fmt.Printf("Прочитано: %v", id_rec)
+	if command == "show" {
+		id_rec, err := dbw.ReadRec(1)
+		if err != nil {
+			fmt.Printf("Ошибка: %v\n", err)
+		} else {
+			fmt.Printf("Прочитано: %v", id_rec)
+
+		}
 	}
 
 }
