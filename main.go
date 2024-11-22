@@ -19,7 +19,7 @@ func main() {
 
 	var (
 		command string
-		// age     int
+		todo_id int
 		// height  float64
 	)
 
@@ -29,7 +29,7 @@ func main() {
 	}
 
 	flag.StringVar(&command, "command", "show", "The command for ToDo")
-	// flag.IntVar(&age, "age", 21, "Your age")
+	flag.IntVar(&todo_id, "id", 0, "Id for sowing todo")
 	// flag.Float64Var(&height, "height", 180, "Ваш рост (см)")
 
 	flag.Parse()
@@ -39,17 +39,16 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Printf("Name: %s\n", command)
+	fmt.Printf("Command is %s\n", command)
 	// fmt.Printf("Age: %d\n", age)
 	// fmt.Printf("Height: %.2f\n", height)
 
 	if command == "show" {
-		id_rec, err := dbw.ReadRec(1)
+		id_rec, err := dbw.ReadAllRec()
 		if err != nil {
 			fmt.Printf("Ошибка: %v\n", err)
 		} else {
 			fmt.Printf("Прочитано: %v", id_rec)
-
 		}
 	}
 
