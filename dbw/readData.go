@@ -2,7 +2,6 @@ package dwb
 
 import (
 	"database/sql"
-	"errors"
 	"fmt"
 	"os"
 
@@ -21,19 +20,20 @@ type todo_record struct {
 	date_of_gone     sql.NullString
 }
 
+var s todo_record
+
 func init() {
 
 }
 
 // ЗАГЛУШКА: Читаю данные из БД
-func ReadRec(id_rec int) (int, error) {
+func ReadAllRec() (int, error) {
 	// Функция читает данные из БД
 	// id ReadRec--1
-
-	if id_rec < 0 {
-		return 0, errors.New(
-			"id ReadRec--1: недопустимый идентификатор записи")
-	}
+	// if id_rec < 0 {
+	// 	return 0, errors.New(
+	// 		"id ReadRec--1: недопустимый идентификатор записи")
+	// }
 	db_connect, err := sql.Open("sqlite", "ep20231204_todo_cli.db")
 	// id ReadRec--2:
 	if err != nil {
@@ -42,6 +42,7 @@ func ReadRec(id_rec int) (int, error) {
 		os.Exit(1)
 	}
 	defer db_connect.Close()
+
 	query := `
 		SELECT 
 			id,
@@ -94,5 +95,5 @@ func ReadRec(id_rec int) (int, error) {
 			todo.date_of_gone,
 		)
 	}
-	return id_rec, nil
+	return 1, nil
 }
